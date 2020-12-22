@@ -1,0 +1,27 @@
+Quick set of code to address the following infrastructure problem should be pretty straightforward:
+
+
+
+Problem:
+
+Assumptions:
+
+1.       Two VPCs (private & public) in a stage environment, two VPCs (private & public) in a prod environment, all in the same AWS account, already exist.
+
+2.       Remote backend state in S3 with corresponding DynamoDB for state locking.
+
+3.       Plain vanilla AMIs in use, no custom AMIs.
+
+4.       Sensitive and non-sensitive variables are stored .tfvars files stored separately from the code.
+
+Need:
+
+We need an Linux EC2 instance to host a Wordpress web server (in both stage & prod). The server needs to also support some static content that is stored in an EFS partition that should be mounted to the EC2 instance via fstab. We also need CloudWatch logs/alarms for monitoring load and accessibility (e.g., the operations team needs to be notified if the host is out of resources, or is down for longer than 10 minutes.
+
+Tools:
+
+At a minimum, use Terraform to stand up as much as possible, and Ansible only when needed.
+
+
+
+We don’t need a perfect solution. This is more about a well-designed structure that is headed in the right direction.
