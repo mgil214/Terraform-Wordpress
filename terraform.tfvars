@@ -1,7 +1,7 @@
 aws_region  = "us-west-2"
 aws_profile = "cli-user"
 
-tfbucket_name = "terraform-state-lock"
+tfbucket_name = "mgil214-tfstate"
 dynamo_table_name = "terraform-state-lock"
 
 stg_public_cidr  = "10.0.1.0/24"

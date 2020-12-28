@@ -5,32 +5,39 @@ provider "aws" {
 
 resource "aws_s3_bucket" "tfstate_bucket" {
   bucket = var.tfbucket_name
-
   versioning {
     enabled = true
   }
-
-  lifecycle {
-    prevent_destroy = false
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        sse_algorithm = "AES256"
+      }
+    }
+  }
+  object_lock_configuration {
+    object_lock_enabled = "Enabled"
   }
   tags = {
     Name = "S3 Remote Terraform State Store"
   }
 }
 
+
 resource "aws_dynamodb_table" "dynamodb-state-lock" {
   name = var.dynamo_table_name
   hash_key = "LockID"
-  read_capacity = 20
-  write_capacity = 20
-
+  read_capacity = 5
+  write_capacity = 5
   attribute {
     name = "LockID"
     type = "S"
   }
-
-  tags = { Name = "DynamoDB Terraform State Lock Table" }
+  tags = {
+    Name = "DynamoDB Terraform State Lock Table"
+  }
 }
+
 
 resource "aws_vpc" "stg_public_vpc" {
   cidr_block           = var.stg_public_cidr
