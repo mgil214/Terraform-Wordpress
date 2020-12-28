@@ -184,3 +184,88 @@ resource "aws_route_table_association" "wp_private2_assoc" {
   subnet_id      = aws_subnet.prod_private_subnet.id
   route_table_id = aws_default_route_table.prod_private_route.id
 }
+
+
+resource "aws_security_group" "stg_public_sg" {
+  name        = "stg_public_sg"
+  description = "Used for the elastic load balancer for public access"
+  vpc_id      = aws_vpc.stg_public_vpc.id
+
+  #HTTP
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+
+resource "aws_security_group" "stg_private_sg" {
+  name        = "stg_private_sg"
+  description = "Used for private instances"
+  vpc_id      = aws_vpc.stg_private_vpc.id
+
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = [var.stg_private_cidr]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+resource "aws_security_group" "prod_public_sg" {
+  name        = "prod_public_sg"
+  description = "Used for the elastic load balancer for public access"
+  vpc_id      = aws_vpc.prod_public_vpc.id
+
+  #HTTP
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+
+resource "aws_security_group" "prod_private_sg" {
+  name        = "prod_private_sg"
+  description = "Used for private instances"
+  vpc_id      = aws_vpc.prod_private_vpc.id
+
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = [var.prod_private_cidr]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}

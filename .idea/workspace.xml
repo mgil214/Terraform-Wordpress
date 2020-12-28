@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1dee0cab-d9f0-4dc7-8bf2-8a1e719289f5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/terraform.tf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.tf" beforeDir="false" afterPath="$PROJECT_DIR$/main.tf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/terraform.tfvars" beforeDir="false" afterPath="$PROJECT_DIR$/terraform.tfvars" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/variables.tf" beforeDir="false" afterPath="$PROJECT_DIR$/variables.tf" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +20,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="TF_FMT" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../cicd-pipeline-train-schedule-autodeploy" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
@@ -36,6 +33,21 @@
       <option name="presentableId" value="Default" />
       <updated>1608652522614</updated>
     </task>
+    <task id="LOCAL-00001" summary="Added S3 and Dynamo lock">
+      <created>1609145595705</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1609145595705</updated>
+    </task>
+    <task id="LOCAL-00002" summary="small changes">
+      <created>1609147691375</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1609147691375</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -48,5 +60,11 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Added S3 and Dynamo lock" />
+    <MESSAGE value="small changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="small changes" />
   </component>
 </project>
