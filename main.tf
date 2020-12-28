@@ -29,9 +29,7 @@ resource "aws_dynamodb_table" "dynamodb-state-lock" {
     type = "S"
   }
 
-  tags {
-    Name = "DynamoDB Terraform State Lock Table"
-  }
+  tags = { Name = "DynamoDB Terraform State Lock Table" }
 }
 
 resource "aws_vpc" "stg_public_vpc" {
