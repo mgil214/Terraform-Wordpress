@@ -3,6 +3,37 @@ provider "aws" {
   profile = var.aws_profile
 }
 
+resource "aws_s3_bucket" "tfstate_bucket" {
+  bucket = var.tfbucket_name
+
+  versioning {
+    enabled = true
+  }
+
+  lifecycle {
+    prevent_destroy = false
+  }
+  tags = {
+    Name = "S3 Remote Terraform State Store"
+  }
+}
+
+resource "aws_dynamodb_table" "dynamodb-state-lock" {
+  name = var.dynamo_table_name
+  hash_key = "LockID"
+  read_capacity = 20
+  write_capacity = 20
+
+  attribute {
+    name = "LockID"
+    type = "S"
+  }
+
+  tags {
+    Name = "DynamoDB Terraform State Lock Table"
+  }
+}
+
 resource "aws_vpc" "stg_public_vpc" {
   cidr_block           = var.stg_public_cidr
   enable_dns_hostnames = true
@@ -134,3 +165,24 @@ resource "aws_subnet" "prod_private_subnet" {
   }
 }
 
+
+resource "aws_route_table_association" "wp_public1_assoc" {
+  subnet_id      = aws_subnet.stg_public_subnet.id
+  route_table_id = aws_route_table.stg_public_route.id
+}
+
+resource "aws_route_table_association" "wp_private1_assoc" {
+  subnet_id      = aws_subnet.stg_private_subnet.id
+  route_table_id = aws_default_route_table.stg_private_route.id
+}
+
+
+resource "aws_route_table_association" "wp_public2_assoc" {
+  subnet_id      = aws_subnet.prod_public_subnet.id
+  route_table_id = aws_route_table.prod_public_route.id
+}
+
+resource "aws_route_table_association" "wp_private2_assoc" {
+  subnet_id      = aws_subnet.prod_private_subnet.id
+  route_table_id = aws_default_route_table.prod_private_route.id
+}
