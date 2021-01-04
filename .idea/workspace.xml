@@ -2,7 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1dee0cab-d9f0-4dc7-8bf2-8a1e719289f5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Terraform-Ansible-Task.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Terraform-Ansible-Task.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.tf" beforeDir="false" afterPath="$PROJECT_DIR$/main.tf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/terraform.tfvars" beforeDir="false" afterPath="$PROJECT_DIR$/terraform.tfvars" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/variables.tf" beforeDir="false" afterPath="$PROJECT_DIR$/variables.tf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../awsterransible/.idea/awsterransible.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../awsterransible/.idea/awsterransible.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../awsterransible/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../awsterransible/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../awsterransible/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../awsterransible/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../awsterransible/aws_hosts" beforeDir="false" afterPath="$PROJECT_DIR$/../awsterransible/aws_hosts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,6 +22,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1m1E6fIovXASM0h0CFzGZ1fEOYe" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -21,7 +31,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="TF_FMT" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../cicd-pipeline-train-schedule-autodeploy" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../awsterransible" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />

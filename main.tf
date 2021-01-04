@@ -198,12 +198,20 @@ resource "aws_security_group" "stg_public_sg" {
   description = "Used for the elastic load balancer for public access"
   vpc_id      = aws_vpc.stg_public_vpc.id
 
+  #SSH
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = [var.local_ip]
+  }
+
   #HTTP
   ingress {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = [var.local_ip]
   }
 
   egress {
@@ -240,12 +248,20 @@ resource "aws_security_group" "prod_public_sg" {
   description = "Used for the elastic load balancer for public access"
   vpc_id      = aws_vpc.prod_public_vpc.id
 
+  #SSH
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = [var.local_ip]
+  }
+
   #HTTP
   ingress {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = [var.local_ip]
   }
 
   egress {
@@ -275,4 +291,39 @@ resource "aws_security_group" "prod_private_sg" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+}
+
+resource "aws_key_pair" "auth_key" {
+  key_name   = var.my_key_name
+  public_key = file(var.my_public_key_path)
+}
+
+resource "aws_instance" "wordpress_stg" {
+  instance_type = var.my_instance_type
+  ami = var.my_ami
+
+  tags = {
+    Name = "wordpress_stg"
+  }
+
+  key_name = aws_key_pair.auth_key.id
+  vpc_security_group_ids = [
+    aws_security_group.stg_public_sg.id]
+#  iam_instance_profile = aws_iam_instance_profile.s3_access_profile.id
+  subnet_id = aws_subnet.stg_public_subnet.id
+}
+
+resource "aws_instance" "wordpress_prod" {
+  instance_type = var.my_instance_type
+  ami = var.my_ami
+
+  tags = {
+    Name = "wordpress_prod"
+  }
+
+  key_name = aws_key_pair.auth_key.id
+  vpc_security_group_ids = [
+    aws_security_group.prod_public_sg.id]
+#  iam_instance_profile = aws_iam_instance_profile.s3_access_profile.id
+  subnet_id = aws_subnet.prod_public_subnet.id
 }
