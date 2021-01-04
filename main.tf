@@ -25,9 +25,9 @@ resource "aws_s3_bucket" "tfstate_bucket" {
 
 
 resource "aws_dynamodb_table" "dynamodb-state-lock" {
-  name = var.dynamo_table_name
-  hash_key = "LockID"
-  read_capacity = 5
+  name           = var.dynamo_table_name
+  hash_key       = "LockID"
+  read_capacity  = 5
   write_capacity = 5
   attribute {
     name = "LockID"
@@ -229,6 +229,13 @@ resource "aws_security_group" "stg_private_sg" {
   vpc_id      = aws_vpc.stg_private_vpc.id
 
   ingress {
+    from_port   = 2049
+    to_port     = 2049
+    protocol    = "TCP"
+    cidr_blocks = [var.stg_private_cidr, aws_instance.wordpress_stg.private_ip]
+  }
+
+  ingress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
@@ -295,35 +302,59 @@ resource "aws_security_group" "prod_private_sg" {
 
 resource "aws_key_pair" "auth_key" {
   key_name   = var.my_key_name
+#  public_key = var.my_public_key
   public_key = file(var.my_public_key_path)
 }
 
 resource "aws_instance" "wordpress_stg" {
   instance_type = var.my_instance_type
-  ami = var.my_ami
-
+  ami           = var.my_ami
+  key_name = aws_key_pair.auth_key.id
+  vpc_security_group_ids = [ aws_security_group.stg_private_sg.id, aws_security_group.stg_public_sg.id ]
+  #  iam_instance_profile = aws_iam_instance_profile.s3_access_profile.id
+  subnet_id = aws_subnet.stg_public_subnet.id
   tags = {
     Name = "wordpress_stg"
   }
 
-  key_name = aws_key_pair.auth_key.id
-  vpc_security_group_ids = [
-    aws_security_group.stg_public_sg.id]
-#  iam_instance_profile = aws_iam_instance_profile.s3_access_profile.id
-  subnet_id = aws_subnet.stg_public_subnet.id
 }
 
-resource "aws_instance" "wordpress_prod" {
-  instance_type = var.my_instance_type
-  ami = var.my_ami
+//resource "aws_instance" "wordpress_prod" {
+//  instance_type = var.my_instance_type
+//  ami           = var.my_ami
+//
+//  tags = {
+//    Name = "wordpress_prod"
+//  }
+//
+//  key_name = aws_key_pair.auth_key.id
+//  vpc_security_group_ids = [
+//  aws_security_group.prod_public_sg.id]
+//  #  iam_instance_profile = aws_iam_instance_profile.s3_access_profile.id
+//  subnet_id = aws_subnet.prod_public_subnet.id
+//}
+
+
+resource "aws_efs_file_system" "stg_efs" {
+  creation_token = "stg_wordpress_efs_mount"
+  performance_mode = "generalPurpose"
 
   tags = {
-    Name = "wordpress_prod"
+    Name = "Stage Wordpress Static Content"
   }
+}
 
-  key_name = aws_key_pair.auth_key.id
-  vpc_security_group_ids = [
-    aws_security_group.prod_public_sg.id]
-#  iam_instance_profile = aws_iam_instance_profile.s3_access_profile.id
-  subnet_id = aws_subnet.prod_public_subnet.id
+//resource "aws_efs_file_system" "prod_efs" {
+//  creation_token = "prod_wordpress_efs_mount"
+//  performance_mode = "generalPurpose"
+//
+//  tags = {
+//    Name = "Prod Wordpress Static Content"
+//  }
+//}
+
+resource "aws_efs_mount_target" "stg_efs_mount" {
+  file_system_id = aws_efs_file_system.stg_efs.id
+  subnet_id = aws_subnet.stg_public_subnet.id
+  security_groups = [ aws_security_group.stg_private_sg.id ]
 }
