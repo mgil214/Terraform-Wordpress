@@ -18,3 +18,8 @@ my_ami             = "ami-0e472933a1395e172"
 my_key_name        = "m_linux_key"
 my_public_key      = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDcufYYpebsy9m8WplbcLk1Tp/3GCVLkhbQALh0WYW0dC1sMBHbRSF8VpzeMpDogurUHt7KP8CBVq7ZvEFmcQdYCwR19TW/WWq9bPMu1mUIUG/xNzaJpARa3jk9T1WM4EtuErHuJ14VnJr6LynkSflovgEJrdAUaOOe77r/xcfLmWZF/fv3daouzxtmq7PYOydMhMroonFJmiSF9CYWPlJ7wJOf0YJfGolXcJSIjQeJGTnNPoHrTAo3wckj2Rq9shYUXbWiRAq3yKxqXVGM3LHWvshTpeky7NPYQoYTnz/Kffo0ZYpBI3KkH1tvhdJMaPXjGyH56UEmR4k5tsj+fFyN marat@linux"
 my_public_key_path = "/home/marat/.ssh/aws-key.pem"
+
+elb_healthy_threshold   = "2"
+elb_unhealthy_threshold = "2"
+elb_timeout             = "3"
+elb_interval            = "30"

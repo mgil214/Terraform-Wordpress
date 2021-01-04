@@ -20,3 +20,8 @@ variable "my_public_key" {}
 variable "my_public_key_path" {}
 variable "my_instance_type" {}
 variable "my_ami" {}
+
+variable "elb_healthy_threshold" {}
+variable "elb_unhealthy_threshold" {}
+variable "elb_timeout" {}
+variable "elb_interval" {}
