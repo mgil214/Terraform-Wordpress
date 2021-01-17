@@ -8,12 +8,7 @@ variable "dynamo_table_name" {}
 
 variable "local_ip" {}
 
-variable "stg_cidr" {}
-variable "prod_cidr" {}
-//variable "stg_public_cidr" {}
-//variable "stg_private_cidr" {}
-//variable "prod_public_cidr" {}
-//variable "prod_private_cidr" {}
+variable "vpc_cidr" {}
 
 variable "my_key_name" {}
 variable "my_public_key" {}
